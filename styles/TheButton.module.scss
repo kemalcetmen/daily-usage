@@ -1,0 +1,54 @@
+.all{
+    position: fixed;
+    bottom:5px;
+    right:5px;
+}
+.whenworking{
+    display: flex;
+}
+.thebutton, .dialog ,.redbutton{
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    display: flex;
+    text-align: center;
+}
+.thebutton,.redbutton {
+    width: 100px;
+    background-color: aqua;
+    display: flex;
+    cursor: pointer;
+    z-index: 100;
+}
+.thebutton{
+    background-color: aqua;
+}
+.redbutton {
+    background-color: rgb(40, 132, 132);
+
+}
+.buttonimage {
+    margin : auto;
+}
+.dialog{
+    margin-right: -100px;
+    padding-right: 100px;
+    resize: horizontal;
+    width: 100%;
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    input {
+        resize: horizontal;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        background-color: transparent;
+        color: #bdc1c6;
+        border: none;
+        padding: 10px;
+        outline: none;
+        overflow: hidden;
+        font-size: 28px;
+    }
+}
+
