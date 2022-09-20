@@ -2,6 +2,7 @@ import React,{useContext, useEffect, useState} from 'react'
 import styles from '../styles/TheButton.module.scss'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { ButtonContext } from '../contexts/ButtonContext';
+import DoubleClickHook from './hooks/DoubleClickHook';
 
 interface Command {
   command: string | string[] | RegExp;
@@ -17,29 +18,27 @@ type Props = {
 }
 
 const TheButton = ({commands}:Props) => {
-  const {micOpen} = useContext(ButtonContext)
-
-  const {transcript,resetTranscript, listening,
+  const {micOpen,setMicOpen} = useContext(ButtonContext)
+  const {
+    transcript,
+    resetTranscript,
+    listening,
   } = useSpeechRecognition({transcribing:!micOpen ,commands })
 
-  // useEffect(() => {
-  //   resetTranscript()
-  // },[micOpen, resetTranscript])
+  useEffect(() => {
+    console.log(`micmain ${transcript}`)    
+  },[transcript])
 
-  // useEffect(() => {
-  //   console.log(`main ${transcript}`)
-  //   console.log(`listening ${listening}`)
-
-  // })
-  const openButtonOne = () => {
-    resetTranscript()
+  const oneClick = ()=>{
     SpeechRecognition.startListening()
+    setMicOpen(false)
   }
-  const openButtonDouble = () => {
-    //it doesnt work now
-    resetTranscript()
-    SpeechRecognition.startListening({ continuous: true})
+  const doubleClick = ()=>{
+    SpeechRecognition.startListening({continuous: true})
+    setMicOpen(false)
   }
+  const click = DoubleClickHook(oneClick,doubleClick);
+
   const closeButton= () => {
     SpeechRecognition.stopListening()
   }
@@ -63,7 +62,7 @@ const TheButton = ({commands}:Props) => {
           </div>
         </div>
         :
-        <div className={styles.closedbutton} onClick={openButtonOne} onDoubleClick={openButtonDouble}>
+        <div className={styles.closedbutton} onClick={click} title='Double click for long listening'>
             <div className={styles.buttonimage} >
               t
             </div>

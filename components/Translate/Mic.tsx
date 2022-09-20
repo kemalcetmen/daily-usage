@@ -13,22 +13,20 @@ const Mic = ({setTextToTranslate}: Props) => {
       resetTranscript,
       browserSupportsSpeechRecognition,
       isMicrophoneAvailable,
-    } = useSpeechRecognition()
+    } = useSpeechRecognition({transcribing:micOpen})
 
     useEffect(() => {
-        if(listening&&micOpen) setTextToTranslate?.(transcript)
+        if(listening && micOpen) setTextToTranslate?.(transcript)
     },[listening, setTextToTranslate, transcript, micOpen])
 
     useEffect(() => {
-      console.log(`mic1${transcript}`)
-      console.log(window.navigator.language)
-      
+      console.log(`mic1${transcript}`)      
     },[transcript])
     
     const micOn = () => {
-        if (isMicrophoneAvailable && browserSupportsSpeechRecognition){
+      //couldnt use resetTranscript it make some bugs | fix it
+        if(isMicrophoneAvailable && browserSupportsSpeechRecognition){
           setMicOpen(true)
-          resetTranscript()
           SpeechRecognition.startListening({ continuous: true})
         }else{
           console.error("Speech recognition")
