@@ -1,26 +1,26 @@
 import React, { useState,createContext } from 'react'
 
 interface IThemeContext {
-    disableButton: boolean;
-    setDisableButton: (boolean: boolean) => void;
+    micOpen: boolean;
+    setMicOpen: (boolean: boolean) => void;
   }
 
 export const ButtonContext = createContext<IThemeContext>({
-    disableButton: false,
-    setDisableButton: () => {}
+    micOpen: false,
+    setMicOpen: () => {}
 })
 
 type Props = {
   children: React.ReactNode,
 }
 export const ButtonProvider = ({children}: Props) => {
-    const [disableButton,setDisableButton] =useState(false)
+    const [micOpen,setMicOpen] =useState(false)
 
     return (
         <ButtonContext.Provider
             value={{
-                disableButton,
-                setDisableButton,
+                micOpen,
+                setMicOpen,
             }}
         >
             {children}

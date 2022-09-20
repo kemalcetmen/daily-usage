@@ -13,7 +13,6 @@ const Translate: NextPage = () => {
     const [outputLanguage, setOutputLanguage] = useState<string>('Polish')
     const [textToTranslate, setTextToTranslate] = useState<string>('')
     const [translatedText, setTranslatedText] = useState<string>('')
-    const [disableButton, setDisableButton] = useState<boolean>(false)
 
     const getLanguages = () =>{
         setLanguages(langs.map(e => e.name))
@@ -35,7 +34,6 @@ const Translate: NextPage = () => {
         setInputLanguage={setInputLanguage}
         setOutputLanguage={setOutputLanguage}
         setTextToTranslate={setTextToTranslate}
-        disableButton={disableButton}
     />
     <div className={styles.content}>
         {!showModal
@@ -45,27 +43,17 @@ const Translate: NextPage = () => {
                 type="input"
                 text={textToTranslate}
                 currentLanguage={inputLanguage}
-                setInputLanguage={setInputLanguage}
                 setTextToTranslate={setTextToTranslate}
                 setTranslatedText={setTranslatedText}
-                languages={languages}
                 setShowModal={setShowModal}
             />
             <div className={styles.changebutton} onClick={handleClick}>
-                <svg
-                    focusable="false"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    >
-                    <path  d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path>
-                </svg>            
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path  d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>            
             </div>
             <TextBox 
                 type="output"
                 text={translatedText}
                 currentLanguage={outputLanguage}
-                setOutputLanguage={setOutputLanguage}
-                languages={languages}
                 setShowModal={setShowModal}
             />
         </>

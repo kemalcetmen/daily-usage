@@ -8,9 +8,6 @@ type Props = {
     type: string,
     text: string,
     currentLanguage: string,
-    languages: string[] ,
-    setInputLanguage?: React.Dispatch<React.SetStateAction<string>>,
-    setOutputLanguage?: React.Dispatch<React.SetStateAction<string>>,
     setTextToTranslate?: React.Dispatch<React.SetStateAction<string>>,
     setTranslatedText?: React.Dispatch<React.SetStateAction<string>>,
     setShowModal: React.Dispatch<React.SetStateAction<string>>
@@ -20,9 +17,6 @@ const TextBox = ({
     type,
     text,
     currentLanguage,
-    languages,
-    setInputLanguage,
-    setOutputLanguage,
     setTextToTranslate,
     setTranslatedText,
     setShowModal}: Props) => {

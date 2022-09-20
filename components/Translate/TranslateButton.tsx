@@ -5,7 +5,6 @@ type Props = {
     setInputLanguage : React.Dispatch<React.SetStateAction<string>>
     setOutputLanguage : React.Dispatch<React.SetStateAction<string>>
     setTextToTranslate : React.Dispatch<React.SetStateAction<string>>
-    disableButton : boolean
 }
 
 interface Command {
@@ -27,6 +26,10 @@ const TranslateButton = ({
     {
       command: 'I would like to order *',
       callback: (food: any) => setMessage(`Your order is for: ${food}`)
+    },
+    {
+      command: 'selam',
+      callback: (food: any) =>console.log("selamke")
     },
     {
       command: 'The weather is :condition today',

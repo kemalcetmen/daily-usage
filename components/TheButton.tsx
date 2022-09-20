@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import styles from '../styles/TheButton.module.scss'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { ButtonContext } from '../contexts/ButtonContext';
@@ -13,38 +13,62 @@ interface Command {
 }
 
 type Props = {
-  commands : Command[] | undefined 
+  commands : Command[]
 }
 
 const TheButton = ({commands}:Props) => {
-  const {disableButton} = useContext(ButtonContext)
+  const {micOpen} = useContext(ButtonContext)
 
-  const {transcript} = useSpeechRecognition({ commands })
-  
+  const {transcript,resetTranscript, listening,
+  } = useSpeechRecognition({transcribing:!micOpen ,commands })
+
+  // useEffect(() => {
+  //   resetTranscript()
+  // },[micOpen, resetTranscript])
+
+  // useEffect(() => {
+  //   console.log(`main ${transcript}`)
+  //   console.log(`listening ${listening}`)
+
+  // })
+  const openButtonOne = () => {
+    resetTranscript()
+    SpeechRecognition.startListening()
+  }
+  const openButtonDouble = () => {
+    //it doesnt work now
+    resetTranscript()
+    SpeechRecognition.startListening({ continuous: true})
+  }
+  const closeButton= () => {
+    SpeechRecognition.stopListening()
+  }
   return (
     <div className={styles.all}>
-    {!disableButton 
-      ?
-      <div className={styles.whenworking}>
-        {transcript &&
-        <div className={styles.dialog}>
-          <input
-            value={transcript}
-            disabled
-          />
-        </div>
-        }
-        <div className={styles.thebutton} onClick={()=>SpeechRecognition.startListening()}>
-          <div className={styles.buttonimage} >
-            t
+      {(!micOpen && listening)
+        ?
+        <div className={styles.whenworking}>
+          {transcript &&
+          <div className={styles.dialog}>
+            <input
+              value={transcript}
+              disabled
+            />
+          </div>
+          }
+          <div className={styles.workingbutton} onClick={closeButton}>
+            <div className={styles.buttonimage} >
+              t
+            </div>
           </div>
         </div>
-      </div>
-      :
-      <div className={styles.redbutton}>
-        r
-      </div>
-    }
+        :
+        <div className={styles.closedbutton} onClick={openButtonOne} onDoubleClick={openButtonDouble}>
+            <div className={styles.buttonimage} >
+              t
+            </div>
+        </div>
+      }
     </div>
   )
 }
