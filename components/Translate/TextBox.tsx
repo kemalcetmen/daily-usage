@@ -9,11 +9,11 @@ type Props = {
     type: string,
     text: string,
     currentLanguage: string,
-    micOpen: boolean,
+    disableButton: boolean,
     setTextToTranslate?: React.Dispatch<React.SetStateAction<string>>,
     setTranslatedText?: React.Dispatch<React.SetStateAction<string>>,
     setShowModal: React.Dispatch<React.SetStateAction<string>>,
-    setMicOpen?: React.Dispatch<React.SetStateAction<boolean>>,
+    setDisableButton?: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const TextBox = ({
@@ -23,8 +23,8 @@ const TextBox = ({
     setTextToTranslate,
     setTranslatedText,
     setShowModal,
-    micOpen,
-    setMicOpen}: Props) => {
+    disableButton,
+    setDisableButton: setDisableButton}: Props) => {
       
     const handleClick = () => {
         setTextToTranslate?.("")
@@ -56,11 +56,11 @@ const TextBox = ({
           </div>
           <div className={styles.svgs}> 
             {type === 'input' && (
-              <Mic micOpen={micOpen} setMicOpen={setMicOpen} setTextToTranslate={setTextToTranslate}/>
+              <Mic disableButton={disableButton} setDisableButton={setDisableButton} setTextToTranslate={setTextToTranslate}/>
             )}
-              {!micOpen && <Speaker text={text}/>}
+              {!disableButton && <Speaker text={text}/>}
             {type === 'output' && (
-              !micOpen && <CopyText text={text}/>
+              !disableButton && <CopyText text={text}/>
             )}
           </div>
         </div>

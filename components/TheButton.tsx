@@ -14,28 +14,43 @@ interface Command {
 
 type Props = {
   commands : Command[],
-  micOpen: boolean,
-  setMicOpen?: React.Dispatch<React.SetStateAction<boolean>>,
+  disableButton: boolean,
+  setDisableButton?: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-const TheButton = ({commands,micOpen,setMicOpen}:Props) => {
+const TheButton = ({commands,disableButton,setDisableButton}:Props) => {
   const {
     transcript,
     resetTranscript,
     listening,
-  } = useSpeechRecognition({transcribing:!micOpen ,commands })
+    browserSupportsSpeechRecognition,
+    isMicrophoneAvailable,
+  } = useSpeechRecognition({transcribing:!disableButton ,commands })
 
   useEffect(() => {
     console.log(`micmain ${transcript}`)    
   },[transcript])
 
   const oneClick = ()=>{
-    SpeechRecognition.startListening()
-    setMicOpen?.(false)
+    if(isMicrophoneAvailable && browserSupportsSpeechRecognition){
+      setDisableButton?.(false)
+      SpeechRecognition.startListening()
+      resetTranscript()
+
+    }else{
+      console.error("Speech recognition")
+      return
+    }
   }
   const doubleClick = ()=>{
-    SpeechRecognition.startListening({continuous: true})
-    setMicOpen?.(false)
+    if(isMicrophoneAvailable && browserSupportsSpeechRecognition){
+      setDisableButton?.(false)
+      SpeechRecognition.startListening({ continuous: true})
+      resetTranscript()
+    }else{
+      console.error("Speech recognition")
+      return
+    }
   }
   const click = DoubleClickHook(oneClick,doubleClick);
 
@@ -44,7 +59,7 @@ const TheButton = ({commands,micOpen,setMicOpen}:Props) => {
   }
   return (
     <div className={styles.all}>
-      {(!micOpen && listening)
+      {(!disableButton && listening)
         ?
         <div className={styles.whenworking}>
           {transcript &&
