@@ -1,12 +1,16 @@
-import React ,{useContext, useEffect, useState} from 'react'
+import React ,{useEffect} from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { ButtonContext } from '../../contexts/ButtonContext';
 
 type Props = {
-    setTextToTranslate : React.Dispatch<React.SetStateAction<string>> | undefined
+    setTextToTranslate : React.Dispatch<React.SetStateAction<string>> | undefined,
+    micOpen: boolean,
+    setMicOpen?: React.Dispatch<React.SetStateAction<boolean>>,
 }
-const Mic = ({setTextToTranslate}: Props) => {
-    const {micOpen,setMicOpen} = useContext(ButtonContext)
+
+const Mic = ({
+  setTextToTranslate,
+  micOpen,
+  setMicOpen}: Props) => {
     const {
       transcript,
       listening,
@@ -26,7 +30,7 @@ const Mic = ({setTextToTranslate}: Props) => {
     const micOn = () => {
       //couldnt use resetTranscript it make some bugs | fix it
         if(isMicrophoneAvailable && browserSupportsSpeechRecognition){
-          setMicOpen(true)
+          setMicOpen?.(true)
           SpeechRecognition.startListening({ continuous: true})
         }else{
           console.error("Speech recognition")
@@ -35,7 +39,7 @@ const Mic = ({setTextToTranslate}: Props) => {
     }
 
     const micOff = () =>  {
-        setMicOpen(false)
+        setMicOpen?.(false)
         SpeechRecognition.stopListening()
     }
 

@@ -2,9 +2,11 @@ import React,{useState} from 'react'
 import TheButton from '../TheButton'
 
 type Props = {
-    setInputLanguage : React.Dispatch<React.SetStateAction<string>>
-    setOutputLanguage : React.Dispatch<React.SetStateAction<string>>
-    setTextToTranslate : React.Dispatch<React.SetStateAction<string>>
+    micOpen: boolean,
+    setInputLanguage : React.Dispatch<React.SetStateAction<string>>,
+    setOutputLanguage : React.Dispatch<React.SetStateAction<string>>,
+    setTextToTranslate : React.Dispatch<React.SetStateAction<string>>,
+    setMicOpen?: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 interface Command {
@@ -17,9 +19,11 @@ interface Command {
 }
 
 const TranslateButton = ({
+    micOpen,
     setInputLanguage,
     setOutputLanguage,
-    setTextToTranslate}: Props) => {
+    setTextToTranslate,
+    setMicOpen}: Props) => {
     const [message,setMessage]=useState("")
 
     const commands : Command[] = [
@@ -68,7 +72,11 @@ const TranslateButton = ({
     }
   ]
   return (
-    <TheButton commands={commands}/>
+    <TheButton 
+      commands={commands} 
+      micOpen={micOpen}
+      setMicOpen={setMicOpen}
+    />
   )
 }
 

@@ -1,7 +1,6 @@
-import React,{useContext, useEffect, useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import styles from '../styles/TheButton.module.scss'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { ButtonContext } from '../contexts/ButtonContext';
 import DoubleClickHook from './hooks/DoubleClickHook';
 
 interface Command {
@@ -14,11 +13,12 @@ interface Command {
 }
 
 type Props = {
-  commands : Command[]
+  commands : Command[],
+  micOpen: boolean,
+  setMicOpen?: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-const TheButton = ({commands}:Props) => {
-  const {micOpen,setMicOpen} = useContext(ButtonContext)
+const TheButton = ({commands,micOpen,setMicOpen}:Props) => {
   const {
     transcript,
     resetTranscript,
@@ -31,11 +31,11 @@ const TheButton = ({commands}:Props) => {
 
   const oneClick = ()=>{
     SpeechRecognition.startListening()
-    setMicOpen(false)
+    setMicOpen?.(false)
   }
   const doubleClick = ()=>{
     SpeechRecognition.startListening({continuous: true})
-    setMicOpen(false)
+    setMicOpen?.(false)
   }
   const click = DoubleClickHook(oneClick,doubleClick);
 

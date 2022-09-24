@@ -13,6 +13,7 @@ const Translate: NextPage = () => {
     const [outputLanguage, setOutputLanguage] = useState<string>('Polish')
     const [textToTranslate, setTextToTranslate] = useState<string>('')
     const [translatedText, setTranslatedText] = useState<string>('')
+    const [micOpen,setMicOpen] =useState(false)
 
     const getLanguages = () =>{
         setLanguages(langs.map(e => e.name))
@@ -31,6 +32,8 @@ const Translate: NextPage = () => {
   return (
     <>
     <TranslateButton
+        micOpen={micOpen}
+        setMicOpen={setMicOpen}
         setInputLanguage={setInputLanguage}
         setOutputLanguage={setOutputLanguage}
         setTextToTranslate={setTextToTranslate}
@@ -43,9 +46,11 @@ const Translate: NextPage = () => {
                 type="input"
                 text={textToTranslate}
                 currentLanguage={inputLanguage}
+                micOpen={micOpen}
                 setTextToTranslate={setTextToTranslate}
                 setTranslatedText={setTranslatedText}
                 setShowModal={setShowModal}
+                setMicOpen={setMicOpen}
             />
             <div className={styles.changebutton} onClick={handleClick}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path  d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>            
@@ -55,6 +60,7 @@ const Translate: NextPage = () => {
                 text={translatedText}
                 currentLanguage={outputLanguage}
                 setShowModal={setShowModal}
+                micOpen={micOpen}
             />
         </>
         :
