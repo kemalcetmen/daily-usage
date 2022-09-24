@@ -8,7 +8,7 @@ type Props = {
 const Layout = ({children}: Props) => {
   return (
     <>
-      <Navbar />
+        <Navbar />
         <main  className={styles.layoutmain}>{children}</main>
     </>  
     )
