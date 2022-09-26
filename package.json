@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.0",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-speech-recognition": "^3.9.0",
     "@types/regenerator-runtime": "^0.13.1",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.1",
     "next": "12.3.0",
     "next-auth": "^4.10.3",
     "react": "18.2.0",
