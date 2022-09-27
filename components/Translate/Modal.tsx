@@ -2,23 +2,26 @@ import React, {useState} from 'react'
 import styles from '../../styles/Modal.module.scss'
 
 type Props = {
-    languages: Array<string>,
+    languages:LangWithCode[]
     setShowModal: React.Dispatch<React.SetStateAction<string>>,
-    setChosenLanguage: React.Dispatch<React.SetStateAction<string>>,
+    setChosenLanguage: React.Dispatch<React.SetStateAction<LangWithCode>>,
+}
+type LangWithCode = {
+  lang: string,
+  code: string
 }
 
-const Modal = ({languages,
-    setShowModal,
-    setChosenLanguage}: Props) => {
-
+const Modal = ({languages,setShowModal,setChosenLanguage}: Props) => {
     const [searchedLanguage, setSearchedLanguage] = useState('')
 
-    const filteredLanguages = languages.filter((language) =>
-      language.toLowerCase().includes(searchedLanguage.toLowerCase())
+    const filteredLanguages = languages?.filter((language: LangWithCode) =>
+      language.lang.toLowerCase().includes(searchedLanguage.toLowerCase())
     )
   
     const handleClick = (e:any) => {
-      setChosenLanguage(e.target.textContent)
+      const chosenOne = languages.filter((language: LangWithCode) =>language.lang == e.target.textContent)
+      console.log(chosenOne)
+      setChosenLanguage(chosenOne[0])
       setShowModal("")
     }
   
@@ -40,17 +43,14 @@ const Modal = ({languages,
             </div>
         </div>
         <div className={styles.optioncontainer}>
-            <ul>{filteredLanguages?.map((e,i)=>(
+            <ul>{filteredLanguages?.map((e:LangWithCode,i:number)=>(
                 <div key={i} className={styles.listitem}>
-                    <li onClick={handleClick}>{e}</li>
+                    <li onClick={handleClick}>{e.lang}</li>
                 </div>
-            ))}
-                </ul>
+                ))}
+            </ul>
         </div>
-
-      
     </div>
-   
   )
 }
 

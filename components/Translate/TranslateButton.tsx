@@ -1,10 +1,13 @@
 import React,{useState} from 'react'
 import TheButton from '../TheButton'
-
+type LangWithCode = {
+  lang: string,
+  code: string
+}
 type Props = {
     disableButton: boolean,
-    setInputLanguage : React.Dispatch<React.SetStateAction<string>>,
-    setOutputLanguage : React.Dispatch<React.SetStateAction<string>>,
+    setInputLanguage : React.Dispatch<React.SetStateAction<LangWithCode>>,
+    setOutputLanguage : React.Dispatch<React.SetStateAction<LangWithCode>>,
     setTextToTranslate : React.Dispatch<React.SetStateAction<string>>,
     setDisableButton?: React.Dispatch<React.SetStateAction<boolean>>,
 }
