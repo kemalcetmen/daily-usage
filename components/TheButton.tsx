@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect} from 'react'
 import styles from '../styles/TheButton.module.scss'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import DoubleClickHook from './hooks/DoubleClickHook';
@@ -13,12 +13,20 @@ interface Command {
 }
 
 type Props = {
-  commands : Command[],
+  customCommands : Command[],
   disableButton: boolean,
   setDisableButton?: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-const TheButton = ({commands,disableButton,setDisableButton}:Props) => {
+const TheButton = ({customCommands,disableButton,setDisableButton}:Props) => {
+  const baseCommands : Command[] = [
+    {
+      command: ['Hello', 'Hi'],
+      callback: () => {},
+      matchInterim: true
+    },
+  ]
+  const commands = disableButton ? [] : baseCommands.concat(customCommands)
   const {
     transcript,
     resetTranscript,

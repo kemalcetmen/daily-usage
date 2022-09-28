@@ -20,7 +20,6 @@ const Modal = ({languages,setShowModal,setChosenLanguage}: Props) => {
   
     const handleClick = (e:any) => {
       const chosenOne = languages.filter((language: LangWithCode) =>language.lang == e.target.textContent)
-      console.log(chosenOne)
       setChosenLanguage(chosenOne[0])
       setShowModal("")
     }

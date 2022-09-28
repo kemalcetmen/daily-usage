@@ -1,29 +1,41 @@
 import type { NextPage } from 'next'
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect, useRef} from 'react'
 import TextBox from '../components/Translate/TextBox'
 import styles from '../styles/Translate.module.scss'
 import Modal from '../components/Translate/Modal'
 import TranslateButton from '../components/Translate/TranslateButton'
-const langsexample = require('../langsexample.json')//temporary
+const langsexample = require('../langsexample.json')//there is a problem in getting languages api 
 
 type LangWithCode = {
     lang: string,
     code: string
   }
+type OldLanguages={
+  inputLanguage: LangWithCode,
+  outputLanguage: LangWithCode
+}
 const Translate: NextPage = () => {
     const [showModal, setShowModal] = useState<string>("")
     const [languages, setLanguages] = useState<LangWithCode[] | any>(null)
-    const [inputLanguage, setInputLanguage] = useState<LangWithCode>({
-    lang: "English",
-    code: "en"
-  })
-    const [outputLanguage, setOutputLanguage] = useState<LangWithCode>({
-    lang: "Turkish",
-    code: "tr"
-  })
+    const [inputLanguage, setInputLanguage] = useState<LangWithCode>({lang: "",code: ""})
+    const [outputLanguage, setOutputLanguage] = useState<LangWithCode>({lang: "",code: ""})
+    const [oldLanguage, setOldLanguage] = useState<OldLanguages>({inputLanguage:{lang: "",code: ""},outputLanguage:{lang: "",code: ""}})
     const [textToTranslate, setTextToTranslate] = useState<string>('')
     const [translatedText, setTranslatedText] = useState<string>('')
     const [disableButton,setDisableButton] =useState(false)
+
+    useEffect(() => {
+      if(inputLanguage === outputLanguage){
+        if(inputLanguage!==oldLanguage.inputLanguage){
+          setOutputLanguage(oldLanguage.inputLanguage)
+        }else{
+          setInputLanguage(oldLanguage.outputLanguage)
+        }
+      }else{
+        setOldLanguage({inputLanguage,outputLanguage})
+      }
+    }, [inputLanguage,outputLanguage])
+
     useEffect(() => {
         getLanguages()
     },[])
@@ -32,6 +44,11 @@ const Translate: NextPage = () => {
         const langs = Object.values(langsexample.translation).map((e:any) => e.name)
         const codes = Object.keys(langsexample.translation)
         const langswithcodes = langs.reduce((o, k, i) => ([...o, {lang:k,code:codes[i]}]),[])
+        
+        const firstInput = langswithcodes.find((l:any)=>l.lang === "English")
+        const firstOutput = langswithcodes.find((l:any)=>l.lang === "Turkish")
+        setInputLanguage(firstInput)
+        setOutputLanguage(firstOutput)
         setLanguages(langswithcodes)
     }
     const submitTranslate = async () => {
@@ -63,6 +80,7 @@ const Translate: NextPage = () => {
   return (
     <>
     <TranslateButton
+        languages={languages}
         disableButton={disableButton}
         setDisableButton={setDisableButton}
         setInputLanguage={setInputLanguage}
