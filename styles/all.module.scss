@@ -1,0 +1,49 @@
+@mixin page {
+  display: flex;
+  width: calc(100%);
+  min-height: 100vh;
+  height: 100%;
+  justify-content: center;
+}
+@mixin content {
+  width: auto;
+  display: flex;
+  margin-top: 20vh;
+}
+@mixin div($color){
+  width: 100%;
+  height: 3rem;
+  border: 0;
+  color: $color;
+}
+@mixin underline($color){
+  @include div($color);
+  border-bottom: 1px solid $color;
+  display: flex;
+  padding: 0.4rem;  
+  input {
+    width: 100%;
+    background-color: transparent;
+    color: $color;
+    font-size: 1rem;
+    border: 0;
+    &:focus {
+      outline: none;
+    }
+  }
+  svg {
+    cursor: pointer;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    fill: $color;
+  }
+}
+@mixin littlesvgs($color){
+  padding: 0.3rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  border: 1px solid $color;
+  fill: $color;
+}

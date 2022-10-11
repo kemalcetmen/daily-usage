@@ -1,0 +1,30 @@
+@import "./colors.module";
+.cards{
+    display: flex;
+    flex-direction: row;
+}
+.card{
+    cursor: pointer;
+    width: 17rem;
+    height: 25rem;
+    display: flex;
+    justify-content: center;
+    margin:1rem;
+    background-color: #f2f9ff;
+    border-radius: 3rem;
+    border: 0.5rem solid $the-grey;
+}
+.inside{
+    padding: 2rem;
+    border-radius:3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h1{
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        color: $the-grey;
+        font-family: "Times New Roman", Times, serif;
+    }
+}

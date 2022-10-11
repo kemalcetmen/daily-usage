@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import TheButton from '../TheButton'
+import TheButton from './TheButton'
 type LangWithCode = {
   lang: string,
   code: string

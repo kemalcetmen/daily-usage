@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import styles from '../../styles/Modal.module.scss'
+import React, {useEffect, useRef, useState} from 'react'
+import styles from '../../styles/translate/Modal.module.scss'
 
 type Props = {
     languages:LangWithCode[]
@@ -7,18 +7,29 @@ type Props = {
     setChosenLanguage: React.Dispatch<React.SetStateAction<LangWithCode>>,
 }
 type LangWithCode = {
-  lang: string,
-  code: string
+    lang: string,
+    code: string
 }
 
 const Modal = ({languages,setShowModal,setChosenLanguage}: Props) => {
     const [searchedLanguage, setSearchedLanguage] = useState('')
-
+    const ref = useRef<any>()
     const filteredLanguages = languages?.filter((language: LangWithCode) =>
       language.lang.toLowerCase().includes(searchedLanguage.toLowerCase())
     )
-  
-    const handleClick = (e:any) => {
+    useEffect(() => {
+      const handleOutsideClick = (e:any) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+          setShowModal("");
+        }
+      }
+      document.addEventListener("mousedown", handleOutsideClick);
+      return () => {
+        document.removeEventListener("mousedown", handleOutsideClick);
+      };
+    });
+
+      const handleClick = (e:any) => {
       const chosenOne = languages.filter((language: LangWithCode) =>language.lang == e.target.textContent)
       setChosenLanguage(chosenOne[0])
       setShowModal("")
@@ -27,10 +38,11 @@ const Modal = ({languages,setShowModal,setChosenLanguage}: Props) => {
     const handleChange = (e:any) => {
       setSearchedLanguage(e.target.value)
     }
+  
   return (
-    <div className={styles.optionlist}>
+    <div ref={ref} className={styles.optionlist}>
         <div className={styles.searchbar}>
-            <input onChange={handleChange}/>
+            <input autoFocus onChange={handleChange}/>
             <div className={styles.closebutton} onClick={() => setShowModal("")}>
             <svg
                 focusable="false"

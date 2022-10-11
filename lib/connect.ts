@@ -1,0 +1,42 @@
+import mongoose from "mongoose";
+
+let connection:any = {};
+
+if (!process.env.MONGODB_URI) {
+    throw new Error("Please add your MONGODB_URI to .env.local");
+  }
+const MONGODB_URI = process.env.MONGODB_URI;
+
+
+const connect = async ()=>{
+  if (connection.isConnected) {
+    console.log('already connected');
+    return;
+  }
+  if (mongoose.connections.length > 0) {
+    connection.isConnected = mongoose.connections[0].readyState;
+    if (connection.isConnected === 1) {
+      console.log('use previous connection');
+      return;
+    }
+    await mongoose.disconnect();
+  }
+  const db = await mongoose.connect(MONGODB_URI);
+  console.log('new connection');
+  connection.isConnected = db.connections[0].readyState;
+}
+
+
+async function disconnect() {
+  if (connection.isConnected) {
+    if (process.env.NODE_ENV === 'production') {
+      await mongoose.disconnect();
+      connection.isConnected = false;
+    } else {
+      console.log('not disconnected');
+    }
+  }
+}
+
+const db = { connect, disconnect };
+export default db;

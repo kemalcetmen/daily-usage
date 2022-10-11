@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
     "@next-auth/mongodb-adapter": "^1.1.0",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-speech-recognition": "^3.9.0",
     "@types/regenerator-runtime": "^0.13.1",
+    "@types/utf8": "^3.0.1",
+    "ethers": "^5.7.1",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.1",
     "next": "12.3.0",
@@ -20,11 +23,14 @@
     "react": "18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
     "react-speech-kit": "^3.0.1",
     "react-speech-recognition": "^3.9.1",
     "react-textarea-autosize": "^8.3.4",
     "regenerator-runtime": "^0.13.9",
-    "sass": "^1.54.9"
+    "sass": "^1.54.9",
+    "utf8": "^3.0.0",
+    "web3": "^1.8.0"
   },
   "devDependencies": {
     "@types/node": "18.7.18",

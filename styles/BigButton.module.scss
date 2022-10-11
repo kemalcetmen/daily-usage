@@ -1,0 +1,14 @@
+@import "./colors.module";
+.button{
+    background-color: transparent;
+    border-radius: 3rem;
+    border: 2px solid $the-grey;
+    display: flex;
+    padding: 0.7rem;
+    font-weight: 600;
+    justify-content: space-evenly;
+    width: 50%;
+    margin: auto ;
+    cursor: pointer;
+    font-size: 2rem;
+}

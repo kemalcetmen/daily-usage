@@ -1,9 +1,10 @@
 import React from 'react'
-import styles from '../../styles/TextBox.module.scss'
+import styles from '../../styles/translate/TextBox.module.scss'
 import TextareaAutosize from 'react-textarea-autosize';
 import Mic from './Mic';
 import Speaker from './Speaker';
 import CopyText from './CopyText';
+import OpenClosesvg from '../General/OpenClosesvg';
 
 type Props = {
     type: string,
@@ -24,7 +25,7 @@ const TextBox = ({
     setTranslatedText,
     setShowModal,
     disableButton,
-    setDisableButton: setDisableButton}: Props) => {
+    setDisableButton}: Props) => {
       
     const handleClick = () => {
         setTextToTranslate?.("")
@@ -35,28 +36,31 @@ const TextBox = ({
       }  
 
   return (
-    <div className={styles.textbox}>
+    <div>
         <div className={styles.languageselector} onClick={openModal}>
-          <input disabled value={currentLanguage}/>
-          <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" ><path d="M7 10l5 5 5-5z"></path></svg>
+          <input
+                disabled={true}
+                value={currentLanguage}
+            />
+            <OpenClosesvg close ={false}/>
         </div>
         <div className={type === "input" ? styles.input : styles.output}>
           <div className={styles.texts}>
-            {type === 'input' && (
-              <div className={styles.delete} onClick={handleClick}>
-                ˟
-              </div>
-            )}
             <TextareaAutosize
                 onChange={(e) => setTextToTranslate?.(e.target.value)}
                 disabled={type !== "input"}
                 value={text}
                 placeholder={type == 'input' ? 'Enter text' : 'Translation'}
             />
+            {type === 'input' && (
+              <div className={styles.delete} onClick={handleClick}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
+              </div>
+            )}
           </div>
           <div className={styles.svgs}> 
             {type === 'input' && (
-              <Mic disableButton={disableButton} setDisableButton={setDisableButton} setTextToTranslate={setTextToTranslate}/>
+              <Mic setDisableButton={setDisableButton} setTextToTranslate={setTextToTranslate}/>
             )}
               {!disableButton && <Speaker text={text}/>}
             {type === 'output' && (

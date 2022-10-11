@@ -19,6 +19,12 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  callbacks: {
+    session: ({ session, user }:{ session:any, user:any}) => {
+      session.id = user.id
+      return session;
+    },
+  },
   adapter: MongoDBAdapter(clientPromise),
   secret: process.env.SECRET,
   // debug: true,

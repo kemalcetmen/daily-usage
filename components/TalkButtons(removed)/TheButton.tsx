@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import styles from '../styles/TheButton.module.scss'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import DoubleClickHook from './hooks/DoubleClickHook';
+import DoubleClickHook from '../hooks/DoubleClickHook';
 
 interface Command {
   command: string | string[] | RegExp;
