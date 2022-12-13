@@ -31,7 +31,7 @@ const Money: NextPage<{ data: any[] }>= props => {
   }
 
   return (
-    <div className={styles.page}>
+    <>
     <Head>
       <title>ETH Sender</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -79,7 +79,7 @@ const Money: NextPage<{ data: any[] }>= props => {
             </div>}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 //it is so slow

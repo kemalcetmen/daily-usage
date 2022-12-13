@@ -1,11 +1,23 @@
 @import "../all.module";
 @import "../colors.module";
+.textbox{
+    padding:1rem;
+    width: 19rem;
+    margin-bottom: auto;
+
+}
+@media screen and (max-width: 700px) {
+    .textbox{
+        padding:0.5rem;
+        margin-top: 0;
+    }
+}
+.language{
+}
 .output , .input{
-    margin-top: 1rem;
     min-height: 9rem;
     border-radius: 0.6rem;
     background-color: $the-grey;
-    width: 19rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -51,6 +63,7 @@
     }
 .languageselector{
     @include underline($the-blue);
+    width: 16.7rem;
     justify-content: space-between;
     align-items: flex-end;
     cursor: pointer;

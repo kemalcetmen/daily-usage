@@ -9,7 +9,7 @@
   100% {height: 1.7rem;width: 1.7rem}
 }
 .layout{
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -17,6 +17,7 @@
 }
 .navbar{
   display: flex;
+  height: 8vh;
   width: 100%;
   justify-content:flex-end;
   align-items: center;
@@ -26,14 +27,13 @@
   display: flex;
   background-color:$the-grey;
   border-radius: 0.5rem;
-
 }
 .logButton{
   button {
     border:none;
     background-color: $the-black;
     border-radius: 0.5rem;
-    color:blue;
+    color:$the-white;
     margin: 0 1rem;
     padding: 0.4rem;
     cursor: pointer;
@@ -48,9 +48,9 @@
   cursor: pointer;
 }
 .footer{
-  height: 5rem;
+  height: 10vh;
   width:100%;
-  background-color:$the-grey;
+  background-color:$the-black;
   display: flex;
   align-items:center;
   justify-content: center;

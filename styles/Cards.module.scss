@@ -15,8 +15,8 @@
     border: 0.5rem solid $the-grey;
 }
 .inside{
+    position: relative;
     padding: 2rem;
-    border-radius:3rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -28,3 +28,42 @@
         font-family: "Times New Roman", Times, serif;
     }
 }
+.image{
+    position: relative;
+    height: 15rem;
+    width: 15rem;
+}
+@media screen and (max-width: 700px) {
+    .card{
+        cursor: pointer;
+        width: 11rem;
+        height: 15rem;
+        display: flex;
+        justify-content: center;
+        margin:0.2rem;
+        background-color: #f2f9ff;
+        border-radius: 1.5rem;
+        border: 0.2rem solid $the-grey;
+    }
+    .inside{
+        position: relative;
+        padding: 0.6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h1{
+            font-size: 1.5rem;
+
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            color: $the-grey;
+            font-family: "Times New Roman", Times, serif;
+        }
+    }
+    .image{
+        position: relative;
+        height: 10rem;
+        width: 10rem;
+    }
+  }

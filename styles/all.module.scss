@@ -1,14 +1,9 @@
-@mixin page {
-  display: flex;
-  width: calc(100%);
-  min-height: 100vh;
-  height: 100%;
-  justify-content: center;
-}
 @mixin content {
-  width: auto;
+  width: 100%;
+  height: 100%;
   display: flex;
-  margin-top: 20vh;
+  justify-content: center;
+  margin: auto 0;
 }
 @mixin div($color){
   width: 100%;
